@@ -27,6 +27,7 @@ func AuthMiddleware(cfg *config.Config) func(http.Handler) http.Handler {
 			// Add claims to request context
 			r.Header.Set("X-Member-ID", claims.MemberID)
 			r.Header.Set("X-Family-ID", claims.FamilyID)
+			r.Header.Set("X-Role", claims.Role)
 
 			next.ServeHTTP(w, r)
 		})
