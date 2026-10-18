@@ -30,7 +30,3 @@ func Migrate(db *gorm.DB) error {
 	)
 }
 
-func Seed(db *gorm.DB) error {
-	// No seeding for now
-	return nil
-}
