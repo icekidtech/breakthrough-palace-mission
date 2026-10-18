@@ -31,6 +31,25 @@ func RegisterRoutes(mux *http.ServeMux, db *gorm.DB, cfg *config.Config) {
 	protectedMux.HandleFunc("PUT /api/members/", handlers.UpdateMember(db))
 	protectedMux.HandleFunc("DELETE /api/members/", handlers.DeleteMember(db))
 
+	// Meeting routes
+	protectedMux.HandleFunc("GET /api/meetings", handlers.ListMeetings(db))
+	protectedMux.HandleFunc("GET /api/meetings/", handlers.GetMeeting(db))
+	protectedMux.HandleFunc("POST /api/meetings", handlers.CreateMeeting(db))
+	protectedMux.HandleFunc("PUT /api/meetings/", handlers.UpdateMeeting(db))
+	protectedMux.HandleFunc("DELETE /api/meetings/", handlers.DeleteMeeting(db))
+
+	// Attendance routes
+	protectedMux.HandleFunc("GET /api/attendance", handlers.ListAttendance(db))
+	protectedMux.HandleFunc("POST /api/attendance", handlers.RecordAttendance(db))
+	protectedMux.HandleFunc("GET /api/attendance/stats", handlers.GetAttendanceStats(db))
+	protectedMux.HandleFunc("PUT /api/attendance/", handlers.UpdateAttendance(db))
+
+	// Minutes routes
+	protectedMux.HandleFunc("GET /api/minutes", handlers.ListMinutes(db))
+	protectedMux.HandleFunc("GET /api/minutes/", handlers.GetMinutes(db))
+	protectedMux.HandleFunc("POST /api/minutes", handlers.PublishMinutes(db))
+	protectedMux.HandleFunc("DELETE /api/minutes/", handlers.DeleteMinutes(db))
+
 	// Admin routes
 	protectedMux.HandleFunc("POST /api/admin/families", handlers.CreateFamily(db))
 	protectedMux.HandleFunc("GET /api/admin/families", handlers.ListFamilies(db))
