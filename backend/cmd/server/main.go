@@ -36,6 +36,7 @@ func main() {
 	mux := http.NewServeMux()
 	routes.RegisterRoutes(mux, db, cfg)
 	handler := middleware.CORSMiddleware(cfg)(mux)
+	handler = middleware.LoggerMiddleware()(handler)
 
 	// Start server
 	port := ":" + cfg.Port
