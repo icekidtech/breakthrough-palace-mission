@@ -50,6 +50,12 @@ func RegisterRoutes(mux *http.ServeMux, db *gorm.DB, cfg *config.Config) {
 	protectedMux.HandleFunc("POST /api/minutes", handlers.PublishMinutes(db))
 	protectedMux.HandleFunc("DELETE /api/minutes/", handlers.DeleteMinutes(db))
 
+	// Contribution routes
+	protectedMux.HandleFunc("GET /api/contributions", handlers.ListContributions(db))
+	protectedMux.HandleFunc("POST /api/contributions", handlers.RecordContribution(db))
+	protectedMux.HandleFunc("GET /api/contributions/stats", handlers.GetContributionStats(db))
+	protectedMux.HandleFunc("PUT /api/contributions/", handlers.UpdateContribution(db))
+
 	// Admin routes
 	protectedMux.HandleFunc("POST /api/admin/families", handlers.CreateFamily(db))
 	protectedMux.HandleFunc("GET /api/admin/families", handlers.ListFamilies(db))
