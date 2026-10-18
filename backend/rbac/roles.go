@@ -1,18 +1,18 @@
 package rbac
 
-// Role defines family member roles
+// Only keep super admin as a built-in role
+// All other roles and permissions are managed in the database
+
 type Role string
 
 const (
-	RoleCoordinator Role = "coordinator"
-	RoleSecretary   Role = "secretary"
-	RoleWelfareLead Role = "welfare_lead"
-	RoleMember      Role = "member"
+	RoleSuperAdmin Role = "super_admin"
 )
 
-// Permission defines what actions can be performed
 type Permission string
 
+// These are just constants for reference in code
+// Actual permissions are stored in the database
 const (
 	// Family permissions
 	PermViewFamily Permission = "family:view"
@@ -24,12 +24,19 @@ const (
 	PermAddMembers    Permission = "members:add"
 	PermEditMembers   Permission = "members:edit"
 	PermRemoveMembers Permission = "members:remove"
+	PermApproveMember Permission = "members:approve"
 
 	// Meeting permissions
 	PermViewMeetings    Permission = "meetings:view"
 	PermScheduleMeeting Permission = "meetings:schedule"
 	PermEditMeetings    Permission = "meetings:edit"
 	PermDeleteMeetings  Permission = "meetings:delete"
+
+	// Minutes permissions
+	PermViewMinutes    Permission = "minutes:view"
+	PermPublishMinutes Permission = "minutes:publish"
+	PermDeleteMinutes  Permission = "minutes:delete"
+	PermAcknowMinutes  Permission = "minutes:acknowledge"
 
 	// Attendance permissions
 	PermViewAttendance   Permission = "attendance:view"
@@ -42,135 +49,16 @@ const (
 	PermConfirmContribution Permission = "contributions:confirm"
 	PermEditContribution    Permission = "contributions:edit"
 
-	// Minutes permissions
-	PermViewMinutes    Permission = "minutes:view"
-	PermPublishMinutes Permission = "minutes:publish"
-	PermDeleteMinutes  Permission = "minutes:delete"
+	// Admin permissions
+	PermManageFamilies    Permission = "admin:manage_families"
+	PermManageUsers       Permission = "admin:manage_users"
+	PermManageRoles       Permission = "admin:manage_roles"
+	PermManageDepartments Permission = "admin:manage_departments"
+	PermViewAuditLog      Permission = "admin:view_audit_log"
+	PermSystemSettings    Permission = "admin:system_settings"
 )
 
-// RolePermissions maps each role to its permissions
-var RolePermissions = map[Role][]Permission{
-	RoleCoordinator: {
-		// Family
-		PermViewFamily,
-		PermEditFamily,
-		PermViewStats,
-
-		// Members
-		PermViewMembers,
-		PermAddMembers,
-		PermEditMembers,
-		PermRemoveMembers,
-
-		// Meetings
-		PermViewMeetings,
-		PermScheduleMeeting,
-		PermEditMeetings,
-		PermDeleteMeetings,
-
-		// Attendance
-		PermViewAttendance,
-		PermRecordAttendance,
-		PermEditAttendance,
-
-		// Contributions
-		PermViewContributions,
-		PermRecordContribution,
-		PermConfirmContribution,
-		PermEditContribution,
-
-		// Minutes
-		PermViewMinutes,
-		PermPublishMinutes,
-		PermDeleteMinutes,
-	},
-
-	RoleSecretary: {
-		// Family
-		PermViewFamily,
-		PermViewStats,
-
-		// Members
-		PermViewMembers,
-		PermAddMembers,
-		PermEditMembers,
-
-		// Meetings
-		PermViewMeetings,
-		PermScheduleMeeting,
-		PermEditMeetings,
-
-		// Attendance
-		PermViewAttendance,
-		PermRecordAttendance,
-
-		// Contributions
-		PermViewContributions,
-		PermRecordContribution,
-
-		// Minutes
-		PermViewMinutes,
-		PermPublishMinutes,
-	},
-
-	RoleWelfareLead: {
-		// Family
-		PermViewFamily,
-		PermViewStats,
-
-		// Members
-		PermViewMembers,
-
-		// Meetings
-		PermViewMeetings,
-
-		// Attendance
-		PermViewAttendance,
-		PermRecordAttendance,
-
-		// Contributions
-		PermViewContributions,
-		PermRecordContribution,
-		PermConfirmContribution,
-
-		// Minutes
-		PermViewMinutes,
-	},
-
-	RoleMember: {
-		// Family
-		PermViewFamily,
-
-		// Members
-		PermViewMembers,
-
-		// Meetings
-		PermViewMeetings,
-
-		// Attendance
-		PermViewAttendance,
-		PermRecordAttendance,
-
-		// Contributions
-		PermViewContributions,
-		PermRecordContribution,
-
-		// Minutes
-		PermViewMinutes,
-	},
-}
-
-// HasPermission checks if a role has a specific permission
-func HasPermission(role Role, permission Permission) bool {
-	permissions, exists := RolePermissions[role]
-	if !exists {
-		return false
-	}
-
-	for _, p := range permissions {
-		if p == permission {
-			return true
-		}
-	}
-	return false
+// IsSuperAdmin is a quick check for super admin role
+func IsSuperAdmin(role string) bool {
+	return role == string(RoleSuperAdmin)
 }

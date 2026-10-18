@@ -23,10 +23,12 @@ func Migrate(db *gorm.DB) error {
 	return db.AutoMigrate(
 		&models.Family{},
 		&models.Member{},
+		&models.Role{},
+		&models.Permission{},
+		&models.RoleAssignment{},
 		&models.Meeting{},
 		&models.Attendance{},
 		&models.Contribution{},
 		&models.Minute{},
 	)
 }
-
