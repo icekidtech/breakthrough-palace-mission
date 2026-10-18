@@ -20,6 +20,11 @@ func RegisterRoutes(mux *http.ServeMux, db *gorm.DB, cfg *config.Config) {
 	protectedMux.HandleFunc("GET /api/family", handlers.GetFamily(db))
 	protectedMux.HandleFunc("GET /api/family/stats", handlers.GetFamilyStats(db))
 
+	// Admin routes
+	protectedMux.HandleFunc("POST /api/admin/families", handlers.CreateFamily(db))
+	protectedMux.HandleFunc("GET /api/admin/families", handlers.ListFamilies(db))
+	protectedMux.HandleFunc("PUT /api/family", handlers.UpdateFamily(db))
+
 	// Apply auth middleware to protected routes
 	mux.Handle("/api/", middleware.AuthMiddleware(cfg)(protectedMux))
 }

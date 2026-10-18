@@ -27,6 +27,11 @@ func main() {
 		log.Fatalf("Migration failed: %v", err)
 	}
 
+	log.Println("Seeding data...")
+	if err := database.RunMigrations(db); err != nil {
+		log.Fatalf("Seeding failed: %v", err)
+	}
+
 	// Setup server
 	mux := http.NewServeMux()
 	routes.RegisterRoutes(mux, db, cfg)
