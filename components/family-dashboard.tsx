@@ -74,7 +74,7 @@ export function FamilyDashboard() {
           <p className="mt-10 px-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#7592b4]">Account</p>
           <nav className="mt-4 flex flex-col gap-1.5">
             <Link href="/settings" className="flex items-center gap-3 rounded-xl px-3 py-3 text-left text-[13px] font-medium text-[#a9bfd8] hover:bg-white/8 hover:text-white"><Settings className="size-[18px]" />Settings</Link>
-            <button className="flex items-center gap-3 rounded-xl px-3 py-3 text-left text-[13px] font-medium text-[#a9bfd8] hover:bg-white/8 hover:text-white"><ShieldCheck className="size-[18px]" />Privacy & access</button>
+            <Link href="/privacy-access" className="flex items-center gap-3 rounded-xl px-3 py-3 text-left text-[13px] font-medium text-[#a9bfd8] hover:bg-white/8 hover:text-white"><ShieldCheck className="size-[18px]" />Privacy & access</Link>
           </nav>
         </div>
         <div className="rounded-2xl border border-white/10 bg-white/6 p-4">
