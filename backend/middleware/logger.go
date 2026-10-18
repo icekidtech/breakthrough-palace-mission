@@ -22,12 +22,12 @@ func LoggerMiddleware() func(http.Handler) http.Handler {
 
 			// Log the request
 			log.Printf(
-				"%s %s %s | Status: %d | Duration: %v",
+				"%s %s %s | Status: %d | Duration: %dms",
 				r.Method,
 				r.RequestURI,
 				r.RemoteAddr,
 				wrapped.statusCode,
-				duration,
+				duration.Milliseconds(),
 			)
 		})
 	}

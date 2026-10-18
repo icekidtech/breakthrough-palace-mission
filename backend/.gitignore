@@ -28,3 +28,5 @@ vendor/
 # Binaries
 /bin
 /dist
+/temp
+/tmp

@@ -35,7 +35,7 @@ run: build
 
 dev:
 	@echo "Running in development mode..."
-	@which air > /dev/null || (echo "Installing air..." && go install github.com/cosmtrek/air@latest)
+	@which air > /dev/null || (echo "Installing air..." && go install github.com/air-verse/air@latest)
 	air
 
 test:

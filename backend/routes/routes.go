@@ -11,6 +11,7 @@ import (
 
 func RegisterRoutes(mux *http.ServeMux, db *gorm.DB, cfg *config.Config) {
 	// Public routes (no auth required)
+	mux.HandleFunc("GET /api/health", handlers.Health)
 	mux.HandleFunc("POST /api/auth/login", handlers.Login(db, cfg))
 	mux.HandleFunc("POST /api/auth/logout", handlers.Logout)
 
