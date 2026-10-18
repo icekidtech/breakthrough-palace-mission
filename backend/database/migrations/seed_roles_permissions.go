@@ -52,6 +52,10 @@ func SeedRolesAndPermissions(db *gorm.DB) error {
 		{Name: "contributions:confirm", Description: "Confirm contributions", Category: "contributions"},
 		{Name: "contributions:edit", Description: "Edit contributions", Category: "contributions"},
 
+		// Biodata permissions
+		{Name: "biodata:view", Description: "View biodata", Category: "biodata"},
+		{Name: "biodata:edit", Description: "Edit biodata", Category: "biodata"},
+
 		// Admin permissions
 		{Name: "admin:manage_families", Description: "Manage families", Category: "admin"},
 		{Name: "admin:manage_users", Description: "Manage users", Category: "admin"},
@@ -148,6 +152,7 @@ func SeedRolesAndPermissions(db *gorm.DB) error {
 			"minutes:view", "minutes:publish", "minutes:delete", "minutes:acknowledge",
 			"attendance:view", "attendance:record", "attendance:edit",
 			"contributions:view", "contributions:record", "contributions:confirm", "contributions:edit",
+			"biodata:view", "biodata:edit",
 			"admin:manage_families", "admin:manage_users", "admin:manage_roles", "admin:manage_departments",
 			"admin:view_audit_log", "admin:system_settings",
 		},
@@ -158,6 +163,7 @@ func SeedRolesAndPermissions(db *gorm.DB) error {
 			"minutes:view", "minutes:acknowledge",
 			"attendance:view", "attendance:record",
 			"contributions:view", "contributions:confirm",
+			"biodata:view",
 		},
 		"family_assistant": {
 			"family:view", "family:view_stats",
@@ -166,6 +172,7 @@ func SeedRolesAndPermissions(db *gorm.DB) error {
 			"minutes:view",
 			"attendance:view", "attendance:record",
 			"contributions:view",
+			"biodata:view",
 		},
 		"secretary": {
 			"family:view", "family:edit", "family:view_stats",
@@ -174,6 +181,7 @@ func SeedRolesAndPermissions(db *gorm.DB) error {
 			"minutes:view", "minutes:publish",
 			"attendance:view", "attendance:record", "attendance:edit",
 			"contributions:view", "contributions:record", "contributions:edit",
+			"biodata:view",
 		},
 		"evang_coordinator": {
 			"family:view", "family:view_stats",
@@ -182,6 +190,7 @@ func SeedRolesAndPermissions(db *gorm.DB) error {
 			"minutes:view",
 			"attendance:view", "attendance:record",
 			"contributions:view",
+			"biodata:view",
 		},
 		"member": {
 			"family:view",
@@ -190,6 +199,7 @@ func SeedRolesAndPermissions(db *gorm.DB) error {
 			"minutes:view",
 			"attendance:view", "attendance:record",
 			"contributions:view", "contributions:record",
+			"biodata:view", "biodata:edit",
 		},
 		"church_executive": {
 			"family:view", "family:view_stats",
@@ -198,11 +208,13 @@ func SeedRolesAndPermissions(db *gorm.DB) error {
 			"minutes:view",
 			"attendance:view",
 			"contributions:view",
+			"biodata:view",
 			"admin:view_audit_log", "admin:manage_roles",
 		},
 		"finance_oversight": {
 			"family:view", "family:view_stats",
 			"contributions:view", "contributions:confirm",
+			"biodata:view",
 			"admin:view_audit_log",
 		},
 		"minister": {
@@ -212,6 +224,7 @@ func SeedRolesAndPermissions(db *gorm.DB) error {
 			"minutes:view",
 			"attendance:view",
 			"contributions:view",
+			"biodata:view",
 		},
 	}
 

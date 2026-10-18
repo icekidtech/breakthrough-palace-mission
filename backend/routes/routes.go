@@ -20,6 +20,13 @@ func RegisterRoutes(mux *http.ServeMux, db *gorm.DB, cfg *config.Config) {
 	protectedMux := http.NewServeMux()
 	protectedMux.HandleFunc("GET /api/auth/me", handlers.Me(db))
 
+	// Biodata routes (priority - onboarding gate)
+	protectedMux.HandleFunc("GET /api/biodata", handlers.GetBiodata(db))
+	protectedMux.HandleFunc("PUT /api/biodata", handlers.UpdateBiodata(db))
+	protectedMux.HandleFunc("GET /api/biodata/completion-status", handlers.CheckBiodataCompletion(db))
+	protectedMux.HandleFunc("GET /api/biodata/stats", handlers.ListBiodataStats(db))
+	protectedMux.HandleFunc("GET /api/members//biodata", handlers.GetMemberBiodata(db))
+
 	// Family routes
 	protectedMux.HandleFunc("GET /api/family", handlers.GetFamily(db))
 	protectedMux.HandleFunc("GET /api/family/stats", handlers.GetFamilyStats(db))
