@@ -12,14 +12,24 @@ import (
 func RegisterRoutes(mux *http.ServeMux, db *gorm.DB, cfg *config.Config) {
 	// Public routes (no auth required)
 	mux.HandleFunc("GET /api/health", handlers.Health)
+	mux.HandleFunc("POST /api/auth/signup", handlers.Signup(db))
 	mux.HandleFunc("POST /api/auth/login", handlers.Login(db, cfg))
 	mux.HandleFunc("POST /api/auth/logout", handlers.Logout)
 
 	// Protected routes (auth required)
 	protectedMux := http.NewServeMux()
 	protectedMux.HandleFunc("GET /api/auth/me", handlers.Me(db))
+
+	// Family routes
 	protectedMux.HandleFunc("GET /api/family", handlers.GetFamily(db))
 	protectedMux.HandleFunc("GET /api/family/stats", handlers.GetFamilyStats(db))
+
+	// Member routes
+	protectedMux.HandleFunc("GET /api/members", handlers.ListMembers(db))
+	protectedMux.HandleFunc("GET /api/members/", handlers.GetMember(db))
+	protectedMux.HandleFunc("POST /api/members", handlers.AddMember(db))
+	protectedMux.HandleFunc("PUT /api/members/", handlers.UpdateMember(db))
+	protectedMux.HandleFunc("DELETE /api/members/", handlers.DeleteMember(db))
 
 	// Admin routes
 	protectedMux.HandleFunc("POST /api/admin/families", handlers.CreateFamily(db))
