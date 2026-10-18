@@ -15,9 +15,9 @@ type Permission string
 
 const (
 	// Family permissions
-	PermViewFamily   Permission = "family:view"
-	PermEditFamily   Permission = "family:edit"
-	PermViewStats    Permission = "family:view_stats"
+	PermViewFamily Permission = "family:view"
+	PermEditFamily Permission = "family:edit"
+	PermViewStats  Permission = "family:view_stats"
 
 	// Member permissions
 	PermViewMembers   Permission = "members:view"
@@ -26,10 +26,10 @@ const (
 	PermRemoveMembers Permission = "members:remove"
 
 	// Meeting permissions
-	PermViewMeetings   Permission = "meetings:view"
+	PermViewMeetings    Permission = "meetings:view"
 	PermScheduleMeeting Permission = "meetings:schedule"
-	PermEditMeetings   Permission = "meetings:edit"
-	PermDeleteMeetings Permission = "meetings:delete"
+	PermEditMeetings    Permission = "meetings:edit"
+	PermDeleteMeetings  Permission = "meetings:delete"
 
 	// Attendance permissions
 	PermViewAttendance   Permission = "attendance:view"
@@ -43,9 +43,9 @@ const (
 	PermEditContribution    Permission = "contributions:edit"
 
 	// Minutes permissions
-	PermViewMinutes   Permission = "minutes:view"
+	PermViewMinutes    Permission = "minutes:view"
 	PermPublishMinutes Permission = "minutes:publish"
-	PermDeleteMinutes Permission = "minutes:delete"
+	PermDeleteMinutes  Permission = "minutes:delete"
 )
 
 // RolePermissions maps each role to its permissions
@@ -149,6 +149,7 @@ var RolePermissions = map[Role][]Permission{
 
 		// Attendance
 		PermViewAttendance,
+		PermRecordAttendance,
 
 		// Contributions
 		PermViewContributions,
