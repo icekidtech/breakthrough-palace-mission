@@ -218,9 +218,19 @@ func SeedRolesAndPermissions(db *gorm.DB) error {
 	// Create role-permission associations
 	for roleName, permNames := range rolePermissions {
 		roleID := roleMap[roleName]
+		var role models.Role
+		if err := db.First(&role, "id = ?", roleID).Error; err != nil {
+			return err
+		}
+
 		for _, permName := range permNames {
 			permID := permMap[permName]
-			if err := db.Model(&models.Role{}).Where("id = ?", roleID).Association("Permissions").Append(&models.Permission{ID: permID}); err != nil {
+			var perm models.Permission
+			if err := db.First(&perm, "id = ?", permID).Error; err != nil {
+				return err
+			}
+
+			if err := db.Model(&role).Association("Permissions").Append(&perm); err != nil {
 				return err
 			}
 		}
