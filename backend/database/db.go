@@ -31,5 +31,6 @@ func Migrate(db *gorm.DB) error {
 		&models.Contribution{},
 		&models.Minute{},
 		&models.Biodata{},
+		&models.VerificationToken{},
 	)
 }

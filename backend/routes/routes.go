@@ -7,18 +7,22 @@ import (
 	"github.com/icekidtech/breakthrough-palace-mission/backend/handlers"
 	"github.com/icekidtech/breakthrough-palace-mission/backend/handlers/admin"
 	"github.com/icekidtech/breakthrough-palace-mission/backend/middleware"
+	"github.com/icekidtech/breakthrough-palace-mission/backend/services"
 	"gorm.io/gorm"
 )
 
-func RegisterRoutes(mux *http.ServeMux, db *gorm.DB, cfg *config.Config) {
+func RegisterRoutes(mux *http.ServeMux, db *gorm.DB, cfg *config.Config, emailService *services.EmailService) {
 	authMiddleware := middleware.AuthMiddleware(cfg)
 
 	// Public routes (no auth required)
 	mux.HandleFunc("GET /api/health", handlers.Health)
 	mux.HandleFunc("GET /api/families/", handlers.ListFamilies(db))
-	mux.HandleFunc("POST /api/auth/signup", handlers.Signup(db))
+	mux.HandleFunc("POST /api/auth/signup", handlers.Signup(db, cfg, emailService))
 	mux.HandleFunc("POST /api/auth/login", handlers.Login(db, cfg))
 	mux.HandleFunc("POST /api/auth/logout", handlers.Logout)
+	mux.HandleFunc("POST /api/auth/verify-email", handlers.VerifyEmail(db))
+	mux.HandleFunc("POST /api/auth/forgot-password", handlers.ForgotPassword(db, cfg, emailService))
+	mux.HandleFunc("POST /api/auth/reset-password", handlers.ResetPassword(db))
 
 	// Auth me (protected)
 	mux.Handle("GET /api/auth/me", authMiddleware(http.HandlerFunc(handlers.Me(db))))

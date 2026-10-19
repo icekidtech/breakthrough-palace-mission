@@ -2,9 +2,12 @@ package handlers
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 
+	"github.com/icekidtech/breakthrough-palace-mission/backend/config"
 	"github.com/icekidtech/breakthrough-palace-mission/backend/models"
+	"github.com/icekidtech/breakthrough-palace-mission/backend/services"
 	"github.com/icekidtech/breakthrough-palace-mission/backend/utils"
 	"gorm.io/gorm"
 )
@@ -29,7 +32,7 @@ type SignupResponse struct {
 	} `json:"member"`
 }
 
-func Signup(db *gorm.DB) http.HandlerFunc {
+func Signup(db *gorm.DB, cfg *config.Config, emailService *services.EmailService) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodPost {
 			http.Error(w, `{"error":"method not allowed"}`, http.StatusMethodNotAllowed)
@@ -76,6 +79,35 @@ func Signup(db *gorm.DB) http.HandlerFunc {
 		if err := db.Create(member).Error; err != nil {
 			http.Error(w, `{"error":"failed to create account"}`, http.StatusInternalServerError)
 			return
+		}
+
+		// Generate verification token
+		verificationToken := utils.GenerateToken()
+
+		// Create verification token record
+		emailVerificationToken := &models.VerificationToken{
+			MemberID:  member.ID,
+			Token:     verificationToken,
+			Type:      "email_verification",
+			ExpiresAt: utils.TimeNowAddHours(24), // 24 hour expiry
+		}
+
+		if err := db.Create(emailVerificationToken).Error; err != nil {
+			fmt.Printf("Failed to create verification token: %v\n", err)
+		}
+
+		// Send verification email
+		verificationLink := fmt.Sprintf("%s/auth/verify-email?token=%s", cfg.FrontendURL, verificationToken)
+		if err := emailService.SendVerificationEmail(member.Email, member.Name, verificationLink); err != nil {
+			// Log error but continue (account was created successfully)
+			fmt.Printf("Failed to send verification email: %v\n", err)
+		}
+
+		// Send welcome email
+		dashboardURL := fmt.Sprintf("%s/dashboard", cfg.FrontendURL)
+		if err := emailService.SendWelcomeEmail(member.Email, member.Name, dashboardURL); err != nil {
+			// Log error but continue
+			fmt.Printf("Failed to send welcome email: %v\n", err)
 		}
 
 		resp := SignupResponse{

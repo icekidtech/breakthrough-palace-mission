@@ -8,14 +8,16 @@ import (
 )
 
 type Config struct {
-	Env            string
-	Port           string
-	DatabaseURL    string
-	JWTSecret      string
-	FrontendURL    string
-	CookieDomain   string
-	CookieSecure   bool
-	CookieSameSite string
+	Env              string
+	Port             string
+	DatabaseURL      string
+	JWTSecret        string
+	FrontendURL      string
+	CookieDomain     string
+	CookieSecure     bool
+	CookieSameSite   string
+	ResendAPIKey     string
+	EmailFromAddress string
 }
 
 func Load() *Config {
@@ -26,18 +28,20 @@ func Load() *Config {
 	isDev := env == "development"
 
 	return &Config{
-		Env:            env,
-		Port:           os.Getenv("PORT"),
-		DatabaseURL:    os.Getenv("DATABASE_URL"),
-		JWTSecret:      os.Getenv("JWT_SECRET"),
-		FrontendURL:    os.Getenv("FRONTEND_URL"),
-		CookieDomain:   os.Getenv("COOKIE_DOMAIN"),
-		CookieSecure:   !isDev,
-		CookieSameSite: "Lax",
+		Env:              env,
+		Port:             os.Getenv("PORT"),
+		DatabaseURL:      os.Getenv("DATABASE_URL"),
+		JWTSecret:        os.Getenv("JWT_SECRET"),
+		FrontendURL:      os.Getenv("FRONTEND_URL"),
+		CookieDomain:     os.Getenv("COOKIE_DOMAIN"),
+		CookieSecure:     !isDev,
+		CookieSameSite:   "Lax",
+		ResendAPIKey:     os.Getenv("RESEND_API_KEY"),
+		EmailFromAddress: os.Getenv("EMAIL_FROM_ADDRESS"),
 	}
 }
 
 func (c *Config) String() string {
-	return fmt.Sprintf("Config{Env: %s, Port: %s, DatabaseURL: %s, CookieSecure: %v, CookieDomain: %s}",
-		c.Env, c.Port, c.DatabaseURL, c.CookieSecure, c.CookieDomain)
+	return fmt.Sprintf("Config{Env: %s, Port: %s, DatabaseURL: %s, CookieSecure: %v, CookieDomain: %s, Email: %s}",
+		c.Env, c.Port, c.DatabaseURL, c.CookieSecure, c.CookieDomain, c.EmailFromAddress)
 }

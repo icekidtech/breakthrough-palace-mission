@@ -1,6 +1,8 @@
 package utils
 
 import (
+	"time"
+
 	"github.com/google/uuid"
 )
 
@@ -11,4 +13,9 @@ func ParseUUID(s string) uuid.UUID {
 		return uuid.Nil
 	}
 	return u
+}
+
+// TimeNowAddHours returns current time plus hours
+func TimeNowAddHours(hours int) time.Time {
+	return time.Now().Add(time.Duration(hours) * time.Hour)
 }

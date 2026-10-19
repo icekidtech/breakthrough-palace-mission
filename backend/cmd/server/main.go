@@ -9,6 +9,7 @@ import (
 	"github.com/icekidtech/breakthrough-palace-mission/backend/database"
 	"github.com/icekidtech/breakthrough-palace-mission/backend/middleware"
 	"github.com/icekidtech/breakthrough-palace-mission/backend/routes"
+	"github.com/icekidtech/breakthrough-palace-mission/backend/services"
 	"github.com/joho/godotenv"
 )
 
@@ -32,9 +33,12 @@ func main() {
 		log.Fatalf("Seeding failed: %v", err)
 	}
 
+	// Initialize email service
+	emailService := services.NewEmailService(cfg.ResendAPIKey, cfg.EmailFromAddress)
+
 	// Setup server
 	mux := http.NewServeMux()
-	routes.RegisterRoutes(mux, db, cfg)
+	routes.RegisterRoutes(mux, db, cfg, emailService)
 	handler := middleware.CORSMiddleware(cfg)(mux)
 	handler = middleware.LoggerMiddleware()(handler)
 
