@@ -32,7 +32,8 @@ export default function SignupPage() {
         const response = await fetch(`${apiUrl}/api/families/`)
         if (!response.ok) throw new Error('Failed to fetch families')
         const data = await response.json()
-        setFamilies(data.families || [])
+        // API returns an array directly, not wrapped in an object
+        setFamilies(Array.isArray(data) ? data : [])
       } catch (err) {
         console.error('Failed to load families:', err)
         setFamilies([])
