@@ -33,6 +33,9 @@ func main() {
 		{ID: uuid.New(), Name: "Omega", Founder: "TBD", Country: "Nigeria", Branch: "Main"},
 		{ID: uuid.New(), Name: "Peculiar", Founder: "TBD", Country: "Nigeria", Branch: "Main"},
 		{ID: uuid.New(), Name: "Restoration", Founder: "TBD", Country: "Nigeria", Branch: "Main"},
+		{ID: uuid.New(), Name: "Royalty", Founder: "TBD", Country: "Nigeria", Branch: "Main"},
+		{ID: uuid.New(), Name: "Overcomers", Founder: "TBD", Country: "Nigeria", Branch: "Main"},
+		{ID: uuid.New(), Name: "Rulers", Founder: "TBD", Country: "Nigeria", Branch: "Main"},
 	}
 
 	fmt.Println("=== Breakthrough Palace Mission - Family Seeder ===\n")

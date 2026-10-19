@@ -40,7 +40,6 @@ export default function LoginPage() {
       
       // Check biodata completion
       const biodataRes = await fetch(`${apiUrl}/api/biodata/completion-status`, {
-        headers: { 'Authorization': `Bearer ${data.token}` },
         credentials: 'include',
       })
       
