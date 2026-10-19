@@ -25,7 +25,7 @@ func RegisterRoutes(mux *http.ServeMux, db *gorm.DB, cfg *config.Config) {
 	protectedMux.HandleFunc("PUT /api/biodata", handlers.UpdateBiodata(db))
 	protectedMux.HandleFunc("GET /api/biodata/completion-status", handlers.CheckBiodataCompletion(db))
 	protectedMux.HandleFunc("GET /api/biodata/stats", handlers.ListBiodataStats(db))
-	protectedMux.HandleFunc("GET /api/members//biodata", handlers.GetMemberBiodata(db))
+	protectedMux.HandleFunc("GET /api/members/{id}/biodata", handlers.GetMemberBiodata(db))
 
 	// Family routes
 	protectedMux.HandleFunc("GET /api/family", handlers.GetFamily(db))
