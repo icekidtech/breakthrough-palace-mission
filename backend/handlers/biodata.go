@@ -73,13 +73,6 @@ func initializeBiodataFromMember(db *gorm.DB, memberID string) (*models.Biodata,
 func GetBiodata(db *gorm.DB) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		memberID := middleware.ExtractMemberID(r)
-		role := r.Header.Get("X-Role")
-
-		// Check permission
-		if !rbac.IsSuperAdmin(role) && !hasPermission(db, role, "biodata:view") {
-			http.Error(w, `{"error":"forbidden"}`, http.StatusForbidden)
-			return
-		}
 
 		var biodata models.Biodata
 		result := db.Where("member_id = ?", memberID).First(&biodata)
@@ -115,13 +108,6 @@ func UpdateBiodata(db *gorm.DB) http.HandlerFunc {
 		}
 
 		memberID := middleware.ExtractMemberID(r)
-		role := r.Header.Get("X-Role")
-
-		// Check permission
-		if !rbac.IsSuperAdmin(role) && !hasPermission(db, role, "biodata:edit") {
-			http.Error(w, `{"error":"forbidden"}`, http.StatusForbidden)
-			return
-		}
 
 		var req BiodataUpdateRequest
 		if err := json.NewDecoder(r.Body).Decode(&req); err != nil {

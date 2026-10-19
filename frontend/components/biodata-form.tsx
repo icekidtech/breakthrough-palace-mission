@@ -53,16 +53,24 @@ export default function BiodataForm({ isOnboarding = false, onComplete }: Biodat
   useEffect(() => {
     const fetchBiodata = async () => {
       try {
-        const response = await fetch('/api/biodata', {
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL
+        console.log('Fetching biodata from:', `${apiUrl}/api/biodata`)
+        const response = await fetch(`${apiUrl}/api/biodata`, {
           credentials: 'include',
         })
-        if (!response.ok) throw new Error('Failed to load biodata')
+        console.log('Biodata response status:', response.status)
+        if (!response.ok) {
+          const errorText = await response.text()
+          console.error('Biodata error response:', errorText)
+          throw new Error(`Failed to load biodata: ${response.status}`)
+        }
         const data = await response.json()
+        console.log('Biodata loaded successfully:', data)
         setBiodata(data.biodata)
         calculateCompletion(data.biodata)
       } catch (err) {
         setError('Failed to load biodata')
-        console.error(err)
+        console.error('Error fetching biodata:', err)
       } finally {
         setLoading(false)
       }
@@ -110,7 +118,8 @@ export default function BiodataForm({ isOnboarding = false, onComplete }: Biodat
     setSuccess(false)
 
     try {
-      const response = await fetch('/api/biodata', {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL
+      const response = await fetch(`${apiUrl}/api/biodata`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
