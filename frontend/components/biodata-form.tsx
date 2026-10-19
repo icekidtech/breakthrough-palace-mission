@@ -202,7 +202,7 @@ export default function BiodataForm({ isOnboarding = false, onComplete }: Biodat
                 value={biodata.full_name || ''}
                 onChange={handleChange}
                 required
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder-gray-400"
               />
             </div>
             <div>
@@ -215,7 +215,7 @@ export default function BiodataForm({ isOnboarding = false, onComplete }: Biodat
                 value={biodata.date_of_birth ? biodata.date_of_birth.split('T')[0] : ''}
                 onChange={handleDateChange}
                 required
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder-gray-400"
               />
             </div>
             <div>
@@ -227,7 +227,7 @@ export default function BiodataForm({ isOnboarding = false, onComplete }: Biodat
                 value={biodata.gender || ''}
                 onChange={handleChange}
                 required
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder-gray-400"
               >
                 <option value="">Select gender</option>
                 <option value="Male">Male</option>
@@ -244,7 +244,7 @@ export default function BiodataForm({ isOnboarding = false, onComplete }: Biodat
                 value={biodata.marital_status || ''}
                 onChange={handleChange}
                 required
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder-gray-400"
               >
                 <option value="">Select status</option>
                 <option value="Single">Single</option>
@@ -262,7 +262,7 @@ export default function BiodataForm({ isOnboarding = false, onComplete }: Biodat
                 name="nationality"
                 value={biodata.nationality || ''}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder-gray-400"
               />
             </div>
           </div>
@@ -282,7 +282,7 @@ export default function BiodataForm({ isOnboarding = false, onComplete }: Biodat
                 value={biodata.phone_number || ''}
                 onChange={handleChange}
                 required
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder-gray-400"
               />
             </div>
             <div>
@@ -295,7 +295,7 @@ export default function BiodataForm({ isOnboarding = false, onComplete }: Biodat
                 value={biodata.email_address || ''}
                 onChange={handleChange}
                 required
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder-gray-400"
               />
             </div>
             <div className="md:col-span-2">
@@ -308,7 +308,7 @@ export default function BiodataForm({ isOnboarding = false, onComplete }: Biodat
                 onChange={handleChange}
                 required
                 rows={2}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder-gray-400"
               />
             </div>
             <div>
@@ -321,7 +321,7 @@ export default function BiodataForm({ isOnboarding = false, onComplete }: Biodat
                 value={biodata.emergency_contact || ''}
                 onChange={handleChange}
                 required
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder-gray-400"
               />
             </div>
             <div>
@@ -334,7 +334,7 @@ export default function BiodataForm({ isOnboarding = false, onComplete }: Biodat
                 value={biodata.emergency_phone || ''}
                 onChange={handleChange}
                 required
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder-gray-400"
               />
             </div>
           </div>
@@ -354,7 +354,7 @@ export default function BiodataForm({ isOnboarding = false, onComplete }: Biodat
                 value={biodata.date_joined_church ? biodata.date_joined_church.split('T')[0] : ''}
                 onChange={handleDateChange}
                 required
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder-gray-400"
               />
             </div>
             <div>
@@ -366,7 +366,7 @@ export default function BiodataForm({ isOnboarding = false, onComplete }: Biodat
                 name="previous_church"
                 value={biodata.previous_church || ''}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder-gray-400"
               />
             </div>
             <div>
@@ -379,7 +379,7 @@ export default function BiodataForm({ isOnboarding = false, onComplete }: Biodat
                 value={biodata.department || ''}
                 onChange={handleChange}
                 required
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder-gray-400"
                 placeholder="e.g., Choir, Ushering, etc."
               />
             </div>
@@ -393,7 +393,7 @@ export default function BiodataForm({ isOnboarding = false, onComplete }: Biodat
                 value={biodata.family_name || ''}
                 onChange={handleChange}
                 required
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder-gray-400"
               />
             </div>
           </div>
@@ -413,7 +413,7 @@ export default function BiodataForm({ isOnboarding = false, onComplete }: Biodat
                 value={biodata.occupation || ''}
                 onChange={handleChange}
                 required
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder-gray-400"
               />
             </div>
             <div>
@@ -425,7 +425,7 @@ export default function BiodataForm({ isOnboarding = false, onComplete }: Biodat
                 name="company_business_name"
                 value={biodata.company_business_name || ''}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder-gray-400"
               />
             </div>
             <div className="md:col-span-2">
@@ -438,7 +438,7 @@ export default function BiodataForm({ isOnboarding = false, onComplete }: Biodat
                 value={biodata.educational_qualification || ''}
                 onChange={handleChange}
                 required
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder-gray-400"
                 placeholder="e.g., BSc, HND, etc."
               />
             </div>
@@ -458,7 +458,7 @@ export default function BiodataForm({ isOnboarding = false, onComplete }: Biodat
                 name="birthday"
                 value={biodata.birthday ? biodata.birthday.split('T')[0] : ''}
                 onChange={handleDateChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder-gray-400"
               />
             </div>
             <div>
@@ -470,7 +470,7 @@ export default function BiodataForm({ isOnboarding = false, onComplete }: Biodat
                 name="wedding_anniversary"
                 value={biodata.wedding_anniversary ? biodata.wedding_anniversary.split('T')[0] : ''}
                 onChange={handleDateChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder-gray-400"
               />
             </div>
             <div className="md:col-span-2">
@@ -482,7 +482,7 @@ export default function BiodataForm({ isOnboarding = false, onComplete }: Biodat
                 value={biodata.special_occasions || ''}
                 onChange={handleChange}
                 rows={2}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder-gray-400"
               />
             </div>
             <div className="md:col-span-2">
@@ -494,7 +494,7 @@ export default function BiodataForm({ isOnboarding = false, onComplete }: Biodat
                 value={biodata.welfare_support_needs || ''}
                 onChange={handleChange}
                 rows={2}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder-gray-400"
                 placeholder="e.g., prayer, counseling, financial assistance, etc."
               />
             </div>
@@ -514,7 +514,7 @@ export default function BiodataForm({ isOnboarding = false, onComplete }: Biodat
                 name="photograph"
                 value={biodata.photograph || ''}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder-gray-400"
                 placeholder="https://..."
               />
             </div>
@@ -527,7 +527,7 @@ export default function BiodataForm({ isOnboarding = false, onComplete }: Biodat
                 name="social_media_handles"
                 value={biodata.social_media_handles || ''}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder-gray-400"
                 placeholder="e.g., @username, etc."
               />
             </div>
@@ -540,7 +540,7 @@ export default function BiodataForm({ isOnboarding = false, onComplete }: Biodat
                 value={biodata.special_interests || ''}
                 onChange={handleChange}
                 rows={2}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder-gray-400"
               />
             </div>
             <div className="md:col-span-2 flex items-center">
