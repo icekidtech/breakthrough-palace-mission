@@ -1,6 +1,7 @@
 {
-  "name": "my-project",
+  "name": "breakthrough-palace-mission",
   "version": "0.1.0",
+  "description": "Breakthrough Palace Mission - Family records management platform",
   "private": true,
   "packageManager": "pnpm@12.3.4",
   "scripts": {

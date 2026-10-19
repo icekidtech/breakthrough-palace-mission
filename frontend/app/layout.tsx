@@ -4,8 +4,8 @@ import './globals.css'
 import { ProtectedRoute } from '@/components/protected-route'
 
 export const metadata: Metadata = {
-  title: 'Faithful · Dominion Family',
-  description: 'A calm, connected home for your family records, meetings, attendance, and contributions.',
+  title: 'Breakthrough Palace Mission · Family Records',
+  description: 'Breakthrough Palace Mission - Manage family records, meetings, attendance, and contributions.',
   generator: 'v0.app',
   icons: {
     icon: [

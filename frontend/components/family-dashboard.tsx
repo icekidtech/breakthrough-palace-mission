@@ -55,8 +55,8 @@ export function FamilyDashboard() {
               <HeartHandshake className="size-5" strokeWidth={2.4} />
             </div>
             <div>
-              <p className="text-[15px] font-bold tracking-wide">Faithful</p>
-              <p className="text-[10px] font-medium uppercase tracking-[0.18em] text-[#8da8c8]">Family records</p>
+              <p className="text-[15px] font-bold tracking-wide">Breakthrough</p>
+              <p className="text-[10px] font-medium uppercase tracking-[0.18em] text-[#8da8c8]">Palace Mission</p>
             </div>
           </div>
           <button aria-label="Close navigation" className="rounded-lg p-2 text-[#a9bfd8] lg:hidden" onClick={() => setMobileOpen(false)}><X /></button>

@@ -75,8 +75,8 @@ export default function LoginPage() {
                 <HeartHandshake className="size-6 text-white" />
               </div>
               <div className="hidden sm:block">
-                <p className="text-sm font-bold text-gray-900 tracking-wide">Faithful</p>
-                <p className="text-[10px] font-medium text-gray-500 uppercase tracking-[0.1em]">Family Records</p>
+                <p className="text-sm font-bold text-gray-900 tracking-wide">Breakthrough</p>
+                <p className="text-[10px] font-medium text-gray-500 uppercase tracking-[0.1em]">Palace Mission</p>
               </div>
             </div>
           </div>
