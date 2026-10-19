@@ -6,13 +6,12 @@ import { Loader2 } from 'lucide-react'
 
 function getTokenFromCookie() {
   if (typeof document === 'undefined') return null
-  const name = 'token='
-  const decodedCookie = decodeURIComponent(document.cookie)
-  const cookieArray = decodedCookie.split(';')
-  for (let cookie of cookieArray) {
-    cookie = cookie.trim()
-    if (cookie.indexOf(name) === 0) {
-      return cookie.substring(name.length)
+  
+  const cookies = document.cookie.split(';')
+  for (let cookie of cookies) {
+    const [name, value] = cookie.trim().split('=')
+    if (name === 'auth_token') {
+      return decodeURIComponent(value)
     }
   }
   return null
@@ -26,12 +25,16 @@ export function ProtectedRoute({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const token = getTokenFromCookie()
-    const publicRoutes = ['/auth/login', '/auth/signup', '/auth/forgot-password']
+    const publicRoutes = ['/auth/login', '/auth/signup', '/auth/forgot-password', '/auth/verify-email', '/auth/reset-password']
     const isPublicRoute = publicRoutes.some(route => pathname.startsWith(route))
+    // Routes where authenticated users should be redirected away
+    const authRedirectRoutes = ['/auth/login', '/auth/signup', '/auth/forgot-password']
+    const isAuthRedirectRoute = authRedirectRoutes.some(route => pathname.startsWith(route))
 
     if (!token && !isPublicRoute) {
       router.push('/auth/login')
-    } else if (token && isPublicRoute) {
+    } else if (token && isAuthRedirectRoute) {
+      // Only redirect away from login/signup/forgot-password, allow verify-email/reset-password
       router.push('/')
     } else if (token) {
       setIsAuthenticated(true)
