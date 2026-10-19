@@ -84,7 +84,9 @@ export default function SignupPage() {
       }
 
       const data = await response.json()
-      localStorage.setItem('token', data.token)
+      
+      // Token is automatically set in cookies by the backend
+      // No need to manually store in localStorage
 
       // Move to onboarding directly
       router.push('/onboarding')

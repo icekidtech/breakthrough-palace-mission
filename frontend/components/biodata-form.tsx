@@ -54,9 +54,7 @@ export default function BiodataForm({ isOnboarding = false, onComplete }: Biodat
     const fetchBiodata = async () => {
       try {
         const response = await fetch('/api/biodata', {
-          headers: {
-            'Authorization': `Bearer ${localStorage.getItem('token')}`,
-          },
+          credentials: 'include',
         })
         if (!response.ok) throw new Error('Failed to load biodata')
         const data = await response.json()
@@ -116,8 +114,8 @@ export default function BiodataForm({ isOnboarding = false, onComplete }: Biodat
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`,
         },
+        credentials: 'include',
         body: JSON.stringify(biodata),
       })
 

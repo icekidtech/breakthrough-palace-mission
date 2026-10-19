@@ -34,7 +34,9 @@ export default function LoginPage() {
       }
 
       const data = await response.json()
-      localStorage.setItem('token', data.token)
+      
+      // Token is automatically set in cookies by the backend
+      // No need to manually store in localStorage
       
       // Check biodata completion
       const biodataRes = await fetch(`${apiUrl}/api/biodata/completion-status`, {

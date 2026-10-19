@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 
 export function middleware(request: NextRequest) {
-  const token = request.cookies.get('token')?.value || localStorage.getItem?.('token')
+  const token = request.cookies.get('token')?.value
   
   // Public routes that don't require authentication
   const publicRoutes = ['/auth/login', '/auth/signup', '/auth/forgot-password']
