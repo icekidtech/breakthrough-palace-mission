@@ -1,6 +1,7 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import './globals.css'
+import { ProtectedRoute } from '@/components/protected-route'
 
 export const metadata: Metadata = {
   title: 'Faithful · Dominion Family',
@@ -38,7 +39,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="antialiased">
-        {children}
+        <ProtectedRoute>
+          {children}
+        </ProtectedRoute>
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>
