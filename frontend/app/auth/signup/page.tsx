@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { Eye, EyeOff, Mail, Lock, User, Phone, ArrowRight, HeartHandshake, Check } from 'lucide-react'
@@ -11,15 +11,38 @@ export default function SignupPage() {
     name: '',
     email: '',
     phone: '',
+    familyId: '',
     password: '',
     confirmPassword: '',
   })
+  const [families, setFamilies] = useState<Array<{ id: string; name: string }>>([])
+  const [loadingFamilies, setLoadingFamilies] = useState(true)
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const [agreedToTerms, setAgreedToTerms] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [step, setStep] = useState(1) // 1: info, 2: verification
+
+  // Fetch available families
+  useEffect(() => {
+    const fetchFamilies = async () => {
+      try {
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL
+        const response = await fetch(`${apiUrl}/api/families/`)
+        if (!response.ok) throw new Error('Failed to fetch families')
+        const data = await response.json()
+        setFamilies(data.families || [])
+      } catch (err) {
+        console.error('Failed to load families:', err)
+        setFamilies([])
+      } finally {
+        setLoadingFamilies(false)
+      }
+    }
+
+    fetchFamilies()
+  }, [])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -39,6 +62,10 @@ export default function SignupPage() {
     }
     if (!formData.phone.trim()) {
       setError('Phone number is required')
+      return false
+    }
+    if (!formData.familyId) {
+      setError('Please select a family')
       return false
     }
     if (formData.password.length < 6) {
@@ -73,6 +100,7 @@ export default function SignupPage() {
           name: formData.name,
           email: formData.email,
           phone: formData.phone,
+          family_id: formData.familyId,
           password: formData.password,
         }),
         credentials: 'include',
@@ -195,6 +223,31 @@ export default function SignupPage() {
                     className="w-full pl-12 pr-4 py-3 bg-gray-50/50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-gray-900 placeholder-gray-400"
                   />
                 </div>
+              </div>
+
+              {/* Family selection */}
+              <div>
+                <label htmlFor="familyId" className="block text-sm font-medium text-gray-700 mb-2">
+                  Select Your Family
+                </label>
+                <select
+                  id="familyId"
+                  name="familyId"
+                  value={formData.familyId}
+                  onChange={handleChange}
+                  required
+                  disabled={loadingFamilies}
+                  className="w-full px-4 py-3 bg-gray-50/50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-gray-900 disabled:bg-gray-100 disabled:cursor-not-allowed"
+                >
+                  <option value="">
+                    {loadingFamilies ? 'Loading families...' : 'Choose a family'}
+                  </option>
+                  {families.map((family) => (
+                    <option key={family.id} value={family.id}>
+                      {family.name}
+                    </option>
+                  ))}
+                </select>
               </div>
 
               {/* Password input */}
