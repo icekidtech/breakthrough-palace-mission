@@ -1,10 +1,9 @@
-package handlers
+package admin
 
 import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/icekidtech/breakthrough-palace-mission/backend/middleware"
 	"github.com/icekidtech/breakthrough-palace-mission/backend/models"
 	"github.com/icekidtech/breakthrough-palace-mission/backend/rbac"
 	"gorm.io/gorm"
@@ -55,7 +54,8 @@ func CreateFamily(db *gorm.DB) http.HandlerFunc {
 	}
 }
 
-func ListFamilies(db *gorm.DB) http.HandlerFunc {
+// ListFamiliesAdmin returns all families for admin panel (super admin only)
+func ListFamiliesAdmin(db *gorm.DB) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		// Check permission
 		role := r.Header.Get("X-Role")
@@ -83,7 +83,12 @@ func UpdateFamily(db *gorm.DB) http.HandlerFunc {
 			return
 		}
 
-		familyID := middleware.ExtractFamilyID(r)
+		familyID := r.PathValue("id")
+		if familyID == "" {
+			http.Error(w, `{"error":"family id required"}`, http.StatusBadRequest)
+			return
+		}
+
 		role := r.Header.Get("X-Role")
 
 		// Super admin or family leader/secretary can edit
@@ -111,5 +116,49 @@ func UpdateFamily(db *gorm.DB) http.HandlerFunc {
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
 		json.NewEncoder(w).Encode(family)
+	}
+}
+
+// DeleteFamily deletes a family (super admin only)
+func DeleteFamily(db *gorm.DB) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != http.MethodDelete {
+			http.Error(w, `{"error":"method not allowed"}`, http.StatusMethodNotAllowed)
+			return
+		}
+
+		// Check permission
+		role := r.Header.Get("X-Role")
+		if !rbac.IsSuperAdmin(role) {
+			http.Error(w, `{"error":"forbidden"}`, http.StatusForbidden)
+			return
+		}
+
+		familyID := r.PathValue("id")
+		if familyID == "" {
+			http.Error(w, `{"error":"family id required"}`, http.StatusBadRequest)
+			return
+		}
+
+		// Check family exists
+		var family models.Family
+		if err := db.First(&family, "id = ?", familyID).Error; err != nil {
+			if err == gorm.ErrRecordNotFound {
+				http.Error(w, `{"error":"family not found"}`, http.StatusNotFound)
+				return
+			}
+			http.Error(w, `{"error":"failed to fetch family"}`, http.StatusInternalServerError)
+			return
+		}
+
+		// Delete family
+		if err := db.Delete(&family).Error; err != nil {
+			http.Error(w, `{"error":"failed to delete family"}`, http.StatusInternalServerError)
+			return
+		}
+
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusOK)
+		json.NewEncoder(w).Encode(map[string]string{"message": "family deleted successfully"})
 	}
 }

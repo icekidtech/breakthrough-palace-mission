@@ -9,6 +9,21 @@ import (
 	"gorm.io/gorm"
 )
 
+// ListFamilies returns all families (public endpoint - no auth required, used for signup and landing page)
+func ListFamilies(db *gorm.DB) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		var families []models.Family
+		if err := db.Find(&families).Error; err != nil {
+			http.Error(w, `{"error":"failed to fetch families"}`, http.StatusInternalServerError)
+			return
+		}
+
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusOK)
+		json.NewEncoder(w).Encode(families)
+	}
+}
+
 func GetFamily(db *gorm.DB) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		familyID := middleware.ExtractFamilyID(r)

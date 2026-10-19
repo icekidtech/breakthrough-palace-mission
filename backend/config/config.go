@@ -3,6 +3,8 @@ package config
 import (
 	"fmt"
 	"os"
+
+	"github.com/joho/godotenv"
 )
 
 type Config struct {
@@ -17,6 +19,9 @@ type Config struct {
 }
 
 func Load() *Config {
+	// Load .env file (ignore error if file doesn't exist)
+	_ = godotenv.Load()
+
 	env := os.Getenv("ENV")
 	isDev := env == "development"
 
