@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { AlertCircle, CheckCircle2, Loader2 } from 'lucide-react'
 import { DatePicker } from './date-picker'
+import { countriesData, nigerianStates, nigerianLGAs } from '@/lib/countries'
 
 interface Biodata {
   id: string
@@ -12,6 +13,8 @@ interface Biodata {
   gender: string
   marital_status: string
   nationality: string
+  state_of_origin?: string
+  local_government_of_origin?: string
   phone_number: string
   email_address: string
   home_address: string
@@ -250,16 +253,65 @@ export default function BiodataForm({ isOnboarding = false, onComplete }: Biodat
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Nationality
+                Nationality <span className="text-red-500">*</span>
               </label>
-              <input
-                type="text"
+              <select
                 name="nationality"
                 value={biodata.nationality || ''}
                 onChange={handleChange}
+                required
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder-gray-400"
-              />
+              >
+                <option value="">Select nationality</option>
+                {countriesData.map((country) => (
+                  <option key={country.name} value={country.name}>
+                    {country.flag} {country.name}
+                  </option>
+                ))}
+              </select>
             </div>
+            {biodata.nationality === 'Nigeria' && (
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  State of Origin <span className="text-red-500">*</span>
+                </label>
+                <select
+                  name="state_of_origin"
+                  value={biodata.state_of_origin || ''}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder-gray-400"
+                >
+                  <option value="">Select state</option>
+                  {nigerianStates.map((state) => (
+                    <option key={state} value={state}>
+                      {state}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
+            {biodata.nationality === 'Nigeria' && biodata.state_of_origin && (
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Local Government of Origin <span className="text-red-500">*</span>
+                </label>
+                <select
+                  name="local_government_of_origin"
+                  value={biodata.local_government_of_origin || ''}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder-gray-400"
+                >
+                  <option value="">Select LGA</option>
+                  {(nigerianLGAs[biodata.state_of_origin as string] || []).map((lga) => (
+                    <option key={lga} value={lga}>
+                      {lga}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
           </div>
         </section>
 
