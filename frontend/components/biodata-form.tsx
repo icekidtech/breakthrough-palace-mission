@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { AlertCircle, CheckCircle2, Loader2 } from 'lucide-react'
+import { DatePicker } from './date-picker'
 
 interface Biodata {
   id: string
@@ -106,11 +107,6 @@ export default function BiodataForm({ isOnboarding = false, onComplete }: Biodat
     setBiodata(prev => ({ ...prev, [name]: newValue }))
   }
 
-  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target
-    setBiodata(prev => ({ ...prev, [name]: value ? new Date(value).toISOString() : undefined }))
-  }
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setSaving(true)
@@ -209,13 +205,11 @@ export default function BiodataForm({ isOnboarding = false, onComplete }: Biodat
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Date of Birth <span className="text-red-500">*</span>
               </label>
-              <input
-                type="date"
-                name="date_of_birth"
-                value={biodata.date_of_birth ? biodata.date_of_birth.split('T')[0] : ''}
-                onChange={handleDateChange}
+              <DatePicker
+                value={biodata.date_of_birth}
+                onChange={(date) => setBiodata(prev => ({ ...prev, date_of_birth: date }))}
+                placeholder="Select your date of birth"
                 required
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder-gray-400"
               />
             </div>
             <div>
@@ -348,13 +342,11 @@ export default function BiodataForm({ isOnboarding = false, onComplete }: Biodat
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Date Joined Church <span className="text-red-500">*</span>
               </label>
-              <input
-                type="date"
-                name="date_joined_church"
-                value={biodata.date_joined_church ? biodata.date_joined_church.split('T')[0] : ''}
-                onChange={handleDateChange}
+              <DatePicker
+                value={biodata.date_joined_church}
+                onChange={(date) => setBiodata(prev => ({ ...prev, date_joined_church: date }))}
+                placeholder="Select date you joined church"
                 required
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder-gray-400"
               />
             </div>
             <div>
@@ -453,24 +445,20 @@ export default function BiodataForm({ isOnboarding = false, onComplete }: Biodat
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Birthday
               </label>
-              <input
-                type="date"
-                name="birthday"
-                value={biodata.birthday ? biodata.birthday.split('T')[0] : ''}
-                onChange={handleDateChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder-gray-400"
+              <DatePicker
+                value={biodata.birthday}
+                onChange={(date) => setBiodata(prev => ({ ...prev, birthday: date }))}
+                placeholder="Select your birthday"
               />
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Wedding Anniversary
               </label>
-              <input
-                type="date"
-                name="wedding_anniversary"
-                value={biodata.wedding_anniversary ? biodata.wedding_anniversary.split('T')[0] : ''}
-                onChange={handleDateChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder-gray-400"
+              <DatePicker
+                value={biodata.wedding_anniversary}
+                onChange={(date) => setBiodata(prev => ({ ...prev, wedding_anniversary: date }))}
+                placeholder="Select your wedding anniversary"
               />
             </div>
             <div className="md:col-span-2">
