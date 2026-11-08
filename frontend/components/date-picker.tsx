@@ -1,7 +1,7 @@
 'use client'
 
 import * as React from 'react'
-import { format, setMonth, setYear } from 'date-fns'
+import { format, setMonth, setYear, isBefore, isAfter, startOfDay } from 'date-fns'
 import { Calendar, ChevronDown } from 'lucide-react'
 import { DayPicker } from 'react-day-picker'
 import 'react-day-picker/dist/style.css'
@@ -11,6 +11,8 @@ interface DatePickerProps {
   onChange: (date: string) => void
   placeholder?: string
   required?: boolean
+  maxDate?: Date
+  disableFutureDates?: boolean
 }
 
 const months = [
@@ -18,7 +20,14 @@ const months = [
   'July', 'August', 'September', 'October', 'November', 'December'
 ]
 
-export function DatePicker({ value, onChange, placeholder = 'Pick a date', required = false }: DatePickerProps) {
+export function DatePicker({ 
+  value, 
+  onChange, 
+  placeholder = 'Pick a date', 
+  required = false,
+  maxDate,
+  disableFutureDates = false
+}: DatePickerProps) {
   const [open, setOpen] = React.useState(false)
   const [selectedDate, setSelectedDate] = React.useState<Date | undefined>(
     value ? new Date(value) : undefined
@@ -27,8 +36,19 @@ export function DatePicker({ value, onChange, placeholder = 'Pick a date', requi
     value ? new Date(value) : new Date()
   )
 
+  const today = startOfDay(new Date())
+  const effectiveMaxDate = disableFutureDates ? today : maxDate
+
   const handleDateSelect = (date: Date | undefined) => {
     if (date) {
+      // Check if date is in the future
+      if (disableFutureDates && isAfter(date, today)) {
+        return
+      }
+      // Check if date exceeds maxDate
+      if (effectiveMaxDate && isAfter(date, effectiveMaxDate)) {
+        return
+      }
       setSelectedDate(date)
       setDisplayDate(date)
       onChange(date.toISOString())
@@ -100,6 +120,17 @@ export function DatePicker({ value, onChange, placeholder = 'Pick a date', requi
             onMonthChange={setDisplayDate}
             selected={selectedDate}
             onSelect={handleDateSelect}
+            disabled={(date) => {
+              // Disable future dates if disableFutureDates is true
+              if (disableFutureDates && isAfter(date, today)) {
+                return true
+              }
+              // Disable dates after maxDate
+              if (effectiveMaxDate && isAfter(date, effectiveMaxDate)) {
+                return true
+              }
+              return false
+            }}
             className="text-gray-900"
             classNames={{
               caption: 'text-sm font-semibold text-gray-900 mb-4 hidden',

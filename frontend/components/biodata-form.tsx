@@ -210,6 +210,7 @@ export default function BiodataForm({ isOnboarding = false, onComplete }: Biodat
                 onChange={(date) => setBiodata(prev => ({ ...prev, date_of_birth: date }))}
                 placeholder="Select your date of birth"
                 required
+                disableFutureDates={true}
               />
             </div>
             <div>
